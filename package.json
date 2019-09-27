@@ -1,0 +1,28 @@
+{
+  "name": "battlecards",
+  "version": "1.0.0",
+  "description": "Starwars Battlecards",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha /tests/test.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syahrul12345/Battlecards.git"
+  },
+  "keywords": [
+    "Battlecards"
+  ],
+  "author": "Syahrul Nizam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/syahrul12345/Battlecards/issues"
+  },
+  "homepage": "https://github.com/syahrul12345/Battlecards#readme",
+  "dependencies": {
+    "vue-cli": "^2.9.6"
+  }
+}
