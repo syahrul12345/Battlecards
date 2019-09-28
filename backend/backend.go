@@ -4,9 +4,10 @@ import (
 	"backend/controllers"
 	"backend/indexer"
 	"backend/models"
-	"backend/packages/mux"
 	"fmt"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {

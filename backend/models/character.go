@@ -2,10 +2,10 @@
 package models
 
 import (
-	"backend/packages/gorm"
 	"strings"
 	"unicode"
 
+	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"

@@ -2,11 +2,12 @@ package controllers
 
 import (
 	"backend/models"
-	"backend/packages/gorm"
+
 	"backend/utils"
 	"encoding/json"
 	"net/http"
 
+	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 )
 
