@@ -31,7 +31,10 @@ func main() {
 	router.HandleFunc("/api/check", controllers.Check).Methods("GET")
 	//Get the characterdata
 	router.HandleFunc("/api/character", controllers.GetCharacter).Methods("POST")
+	//Serve the Compiled VUE.js frontend
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("../dist/")))
 	port := "5555"
+	fmt.Println("Serving static website at http://localhost:5555/")
 	err := http.ListenAndServe(":"+port, router) //Launch the app, visit localhost:5555/api
 	if err != nil {
 		fmt.Print(err)
