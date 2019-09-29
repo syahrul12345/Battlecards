@@ -33,7 +33,6 @@ func init() {
 	db = conn
 	db.Debug().AutoMigrate(&State{}, &Character{}) //Database migration
 	//put in the idnexer to only index upon first launch of binary
-	// GetDB().Create(&State{Name: "indexState", Index: true})
 }
 
 //GetDB returns a handle to the DB object

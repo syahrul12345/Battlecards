@@ -14,14 +14,15 @@ import (
 func main() {
 	fmt.Println("Starting backend....")
 	status := &models.State{}
-	models.GetDB().Table("states").Where("name = ?", "indexState").Last(status)
+	models.GetDB().Table("states").Where("name = ?", "indexState").First(status)
 	if status.Index == false {
 		fmt.Println("this is the first time this program has been run...")
 		fmt.Println("reindexing the API...")
 		indexer.Start("https://swapi.co/api/people/")
 		fmt.Println("All characters re-index and saved")
+		status.Name = "indexState"
 		status.Index = true
-		models.GetDB().Save(status)
+		models.GetDB().Create(status)
 	} else {
 		fmt.Println("Already Indexed")
 		fmt.Println("The API is Ready")
