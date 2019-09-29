@@ -4,6 +4,7 @@ You can search by name or planets. It also has an analytics tool to compare the 
 
 ## Development
 Instructions on how to build and play with your own local copy of Battlecards.
+If you already have Go(version 1.11 and above) and postgreSQL, skip ahead to the [building section](###Building-Battlecards).
 
 ### Prerequisites
 You'll need these dependencies before getting started:
@@ -132,7 +133,7 @@ cd backend
 The server is written in golang and lives in the `backend` folder. It acts as middlelayer between the frontend and the SWAPI, allowing us to re-index the api and to apply caching features. Caching is done by saving it to the `cache` folder in the root directory.
 
 **Ensure that postgreSQL is running on your machine**
-Since the backend requires to connect to a local postgreSQL database, we will need to configure our `.env` file. Change the contents of the `sample.env` in the backend. Replace the `db_name`, `db_pass` and `db_user` with the correct information. If you're not sure how to do this go [here](### Configuring postgreSQL (all OS))
+Since the backend requires to connect to a local postgreSQL database, we will need to configure our `.env` file. Change the contents of the `sample.env` in the backend. Replace the `db_name`, `db_pass` and `db_user` with the correct information. If you're not sure how to do this go [to the configuration part.](###Configuring-postgreSQL-(all-OS))
 
 ```
 db_name = CHANGE_THIS_TO_YOUR_DB_NAME
