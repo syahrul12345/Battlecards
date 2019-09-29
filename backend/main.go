@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -27,15 +28,26 @@ func main() {
 	}
 
 	router := mux.NewRouter()
+
+	//API
 	//test the API is working
 	router.HandleFunc("/api/check", controllers.Check).Methods("GET")
-	//Get the characterdata
+	//Get the characterdata, and immediately stores it to cache
 	router.HandleFunc("/api/character", controllers.GetCharacter).Methods("POST")
+	//Get the cacheData
+	router.HandleFunc("/api/getCache", controllers.GetCharacterCache).Methods("GET")
+
 	//Serve the Compiled VUE.js frontend
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("../dist/")))
 	port := "5555"
 	fmt.Println("Serving static website at http://localhost:5555/")
-	err := http.ListenAndServe(":"+port, router) //Launch the app, visit localhost:5555/api
+	//lets set the cors policy for testing
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:8080"},
+		AllowCredentials: true,
+	})
+	handler := c.Handler(router)
+	err := http.ListenAndServe(":"+port, handler) //Launch the app, visit localhost:5555/api
 	if err != nil {
 		fmt.Print(err)
 	}

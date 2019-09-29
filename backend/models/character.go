@@ -2,7 +2,13 @@
 package models
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
 	"strings"
+	"time"
 	"unicode"
 
 	"github.com/jinzhu/gorm"
@@ -47,6 +53,12 @@ type CharacterResult struct {
 	HomeWorld Home
 }
 
+//Cache represents the data that will be written to the local cache as a text file
+type Cache struct {
+	Time       int64
+	Characters []CharacterResult
+}
+
 //StarShip represents the JSON object of a one StarShip after reindexing
 type StarShip struct {
 	Model             string
@@ -68,6 +80,70 @@ type Home struct {
 	Name       string
 	Population string
 	Climate    string
+}
+
+//Cache will save the current character result to a local text file
+//This function is implemented on a *CharacterResult
+func (charRes *CharacterResult) Cache() {
+	fmt.Println("########################################################")
+	//1) Open the cache file in ../cache/cache.txt
+	//2) read the data inside
+	//2) Parse the data into a Cache struct object
+	//3) Append the current characterResult to the Cache Object, if it doesn't already exist
+	//4) Save the cache object back to the cache file
+	//5) Updates the time of the cache
+	//Open the File
+	file, fileErr := os.OpenFile("../cache/Cache.txt", os.O_APPEND|os.O_RDWR, os.ModeAppend)
+	if fileErr != nil {
+		//File doesnt exist, so we need to create it
+		fmt.Println("Cache file doesnt exist")
+		fmt.Println("Creating cache.txt in /cache/ folder...")
+		file, _ = os.Create("../cache/Cache.txt")
+		fmt.Println("File Created")
+	}
+	defer file.Close()
+	//Read the file
+	b, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println(err)
+		log.Fatal("failed to read the data from cache file, possibly not bytes")
+	}
+	cache := &Cache{}
+	bodyErr := json.Unmarshal(b, cache)
+	if bodyErr != nil {
+		if bodyErr.Error() == "unexpected end of JSON input" {
+			fmt.Println("Cache file is empty...")
+		}
+	}
+	//set the duplicate flag.
+	duplicate := false
+	for _, character := range cache.Characters {
+		if character.Name == charRes.Name {
+			fmt.Println("This search already exists in the cache")
+			duplicate = true
+		}
+	}
+	//Only if it isn't a dupicate do we add to the cache file
+	if duplicate != true {
+		//Add the current characters to be saved
+		cache.Time = time.Now().Unix()
+		cache.Characters = append(cache.Characters, *charRes)
+		//Let's marshal it back into bytes, for saving
+		cacheBytes, cacheErr := json.Marshal(cache)
+		if cacheErr != nil {
+			fmt.Println("Added response to Go Cache object, but could not conver it to bytes")
+		}
+
+		//Overwrites the older Cache struct with the newer Cache struct.
+		//The index 0 in the second argument will write the new Cache struct from index 0 in the file thus overwrite
+		_, writeErr := file.WriteAt(cacheBytes, 0)
+		if writeErr != nil {
+			fmt.Println(writeErr)
+			fmt.Println("Failed to save cache data to file")
+		}
+		fmt.Printf("Character %s has been saved to cache\n", string(charRes.Name))
+	}
+	fmt.Println("########################################################")
 }
 
 //ToLowerAndNoSpecial removes all whitespaces, diacratics and special charates such as / and -
