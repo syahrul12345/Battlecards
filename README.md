@@ -4,7 +4,7 @@ You can search by name or planets. It also has an analytics tool to compare the 
 
 ## Development
 Instructions on how to build and play with your own local copy of Battlecards.
-If you already have Go(version 1.11 and above) and postgreSQL, skip ahead to the [building section](##Building-Battlecards).
+If you already have Go(version 1.11 and above) and postgreSQL, skip ahead to the [building section](#Building-Battlecards).
 
 ### Prerequisites
 You'll need these dependencies before getting started:
