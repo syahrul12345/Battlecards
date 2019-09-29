@@ -122,7 +122,7 @@ npm run build
 ```
 The frontend will live in the root folder in a newly generated `/dist/` directory. Make sure `/dist/` is in the root folder. Our backend server will target the `index.html` file and serve it on `http://localhost:5555`.
 
-###Compiling the backend
+### Compiling the backend
 
 Enter the `backend` folder in the root repository.
 ```
