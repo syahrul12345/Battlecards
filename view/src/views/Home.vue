@@ -24,7 +24,7 @@
         <v-row :justify="alignment">
             <v-col cols="12" class="text-center">
                 <h1> YOUR COLLECTION </h1>
-                <h3> Last Search: {{lastDateSearch}} ({{secondsAgo}} seconds ago)</h3>
+                <h3> Last Search:  {{secondsAgo}} seconds ago</h3>
             </v-col>
 
         </v-row>
@@ -71,7 +71,7 @@
                 characterDialog: false,
                 selectedCharacter: null,
                 lastDateSearch: null,
-                secondsAgo: null,
+                secondsAgo: 0,
                 alignment: "center",
                 created: true,
                 errorMessage: null,
@@ -87,7 +87,7 @@
         },
         methods: {
             async search(){
-                axios.post("http://localhost:5555/api/character", {
+                axios.post("/api/character", {
                     name:this.character
                 }).then((response) => {
                     //response.data is the response from our golang server
@@ -104,7 +104,8 @@
                         }else{
                             this.characterNames.push(resp["message"].Name)
                             this.characters.push(resp["message"])
-                            this.updateSearchDate()
+                            this.lastDateSearch = Math.round((new Date()).getTime()) / 1000
+                            this.updateSearchSecond()
                         }
                     }
                 })
@@ -113,24 +114,25 @@
                 this.selectedCharacter = character
                 this.characterDialog = true
             },            
-            async updateSearchDate(){
-                this.lastDateSearch = Math.round((new Date()).getTime() / 1000);
-                this.updateSearchSecond()
-            },
+           
             async updateSearchSecond(){
                 var currentTime = Math.round((new Date()).getTime() / 1000)
-                this.secondsAgo = currentTime - this.lastDateSearch
+                this.secondsAgo = Math.floor(currentTime - this.lastDateSearch)
             },
             //getCache will get the cache from the backend, and serve the data located in the cache
             async getCache() {
-                axios.get("http://localhost:5555/api/getCache").then((response) => {
+                axios.get("/api/getCache").then((response) => {
                     const resp = response.data
-                    this.characters = resp["message"].Characters
-                    this.lastDateSearch = resp["message"].Time
-                    for(var i =0;i<this.characters.length;i++){
-                        this.characterNames.push(this.characters[i].Name)
+                    if(resp["message"].Characters != undefined) {
+                        //there is presense of characters in the cahce
+                        this.characters = resp["message"].Characters
+                        this.lastDateSearch = resp["message"].Time
+                        for(var i =0;i<this.characters.length;i++){
+                            this.characterNames.push(this.characters[i].Name)
+                        }
+                        this.updateSearchSecond(resp["message"].Time)
                     }
-                    this.updateSearchSecond()
+                    
                 })
             },
             async closeError() {

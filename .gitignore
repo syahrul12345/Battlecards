@@ -65,3 +65,5 @@ typings/
 # Go binaries
 backend/backend
 
+#Local Cache file
+cache/Cache.txt

@@ -11,7 +11,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {title:'Battlecards'},
+      beforeEnter: (to,from,next) => {
+        document.title = to.meta.title
+        next()
+      }
     },
   ]
 })
