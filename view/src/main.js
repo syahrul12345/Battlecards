@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './registerServiceWorker'
 import vuetify from './plugins/vuetify';
-
+import '@fortawesome/fontawesome-free/css/all.css'
 Vue.config.productionTip = false
 
 new Vue({
@@ -11,3 +11,7 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.use(vuetify, {
+  iconfont: 'fa'
+ })
