@@ -141,7 +141,7 @@ db_pass = CHANGE_THIS_TO_YOUR_DB_PASSWORD
 db_user = CHANGE_THIS_TO_YOUR_USER_ID_OF_MACHINE
 db_type = postgres
 db_host = localhost
-db_port = 5432
+db_port = CHANGE_THIS_TO_THE_POSTGRESQL_PORT
 ```
 
 Change your credentials accordingly. Rename the `sample.env` file to `.env`
