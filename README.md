@@ -129,17 +129,11 @@ Enter the `backend` folder in the root repository.
 cd ../
 cd backend
 ```
-
 The server is written in golang and lives in the `backend` folder. It acts as middlelayer between the frontend and the SWAPI, allowing us to re-index the api and to apply caching features. Caching is done by saving it to the `cache` folder in the root directory.
 
 **Ensure that postgreSQL is running on your machine**
 Since the backend requires to connect to a local postgreSQL database, we will need to configure our `.env` file. Change the contents of the `sample.env` in the backend. Replace the `db_name`, `db_pass` and `db_user` with the correct information. If you're not sure how to do this go [to the configuration part.](#Configuring-postgreSQL-(all-OS))
 
-**If you're getting database is closed error please ensure that postgreSQL is configured correctly. If it still doesn't work, it is most likely because you're running the executable by double clicking it. Instead, cd to the backend folder and run it via terminal**
-```
-cd backend
-./backend
-```
 Configure the `.env.` file.
 
 ```
@@ -162,6 +156,7 @@ We can then compile the backend and execute the go binary generated.
 go build
 ./backend
 ```
+**If you're getting database is closed error please ensure that postgreSQL is configured correctly. If it still doesn't work, it is most likely because you're running the executable by double clicking it. Instead, cd to the backend folder and run it via terminal**
 
 That's it! If you've followed this steps in order, the backend will automatically serve the `index.html` file in the `/dist/` folder. You can visit your own Battlecards website at `http://localhost:5555`
 
