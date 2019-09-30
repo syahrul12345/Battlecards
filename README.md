@@ -135,6 +135,13 @@ The server is written in golang and lives in the `backend` folder. It acts as mi
 **Ensure that postgreSQL is running on your machine**
 Since the backend requires to connect to a local postgreSQL database, we will need to configure our `.env` file. Change the contents of the `sample.env` in the backend. Replace the `db_name`, `db_pass` and `db_user` with the correct information. If you're not sure how to do this go [to the configuration part.](#Configuring-postgreSQL-(all-OS))
 
+**If you're getting database is closed error please ensure that postgreSQL is configured correctly. If it still doesn't work, it is most likely because you're running the executable by double clicking it. Instead, cd to the backend folder and run it via terminal**
+```
+cd backend
+./backend
+```
+Configure the `.env.` file.
+
 ```
 db_name = CHANGE_THIS_TO_YOUR_DB_NAME
 db_pass = CHANGE_THIS_TO_YOUR_DB_PASSWORD
