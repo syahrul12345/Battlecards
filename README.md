@@ -163,7 +163,7 @@ go build
 ./backend
 ```
 
-That's it! If you've followed this steps in order, the backend will automatically serve the `index.html` file in the `/dist/` folder. You can visit your own Battlecards website 
+That's it! If you've followed this steps in order, the backend will automatically serve the `index.html` file in the `/dist/` folder. You can visit your own Battlecards website at `http://localhost:5555`
 
 ### Backend architecture & design
 
