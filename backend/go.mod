@@ -15,5 +15,6 @@ require (
 	github.com/lib/pq v1.1.1
 	github.com/mattn/go-sqlite3 v1.11.0
 	github.com/rs/cors v1.7.0
+	github.com/sevlyar/go-daemon v0.1.5
 	golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2
 )

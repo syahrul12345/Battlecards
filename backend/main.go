@@ -5,11 +5,14 @@ import (
 	"backend/indexer"
 	"backend/models"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
+	"github.com/sevlyar/go-daemon"
 )
+
 func main() {
 	cntxt := &daemon.Context{
 		PidFileName: "sample.pid",
